@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:10:40 by lcollado          #+#    #+#             */
-/*   Updated: 2024/04/04 12:48:23 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/04/06 22:05:22 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	here_doc(char *delimiter, t_pipex *data)
 	int		fd;
 
 	fd = open(HEREDOC_TMP, O_CREAT | O_WRONLY | O_TRUNC, 0000644);
-	//check if (file < 0) perror(error) exit(1)
+	if (fd < 0)
+		return ;
 	while (1)
 	{
 		write(1, "heredoc>", 9);
@@ -28,7 +29,6 @@ void	here_doc(char *delimiter, t_pipex *data)
 		if (ft_strncmp(delimiter, buf, ft_strlen(delimiter)) == 0)
 			break ;
 		write(fd, buf, ft_strlen(buf));
-		//write(fd, "\n", 1);
 		free(buf);
 	}
 	free(buf);
@@ -37,7 +37,8 @@ void	here_doc(char *delimiter, t_pipex *data)
 	if (data->infile < 0)
 	{
 		unlink(HEREDOC_TMP);
-		//msg error and exit(1)
+		print_msg("here_doc error");
+		exit(EXIT_FAILURE);
 	}
 }
 

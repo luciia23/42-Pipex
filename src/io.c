@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:45:20 by lcollado          #+#    #+#             */
-/*   Updated: 2024/04/04 12:53:22 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/04/05 20:00:40 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,26 @@ char	*get_cmd(char **paths, char *cmd)
 char	***get_cmdargs(t_pipex *data, int argc, char *argv[])
 {
 	char	***cmds;
-	char	**split_return;
-	int		start;
-	int		end;
 	int		i;
+	int		start;
 
 	cmds = (char ***)malloc((data->n_cmds + 1) * sizeof(char *));
-	end = argc - 2;
-	start = 2;
-	if (data->here_doc)
-		start = 3;
-	i = start;
 	if (!cmds)
 		return (NULL);
-	while (i <= end)
+	start = 2;
+	if (data->here_doc)
+		start++;
+	i = start;
+	while (i < argc - 1)
 	{
-		split_return = ft_split(argv[i], ' ');
-		if (!split_return)
+		cmds[i - start] = ft_split(argv[i], ' ');
+		if (!cmds[i - start])
 		{
+			while (--i >= start)
+				free(cmds[i - start]);
 			free(cmds);
 			return (NULL);
 		}
-		cmds[i - start] = split_return;
 		i++;
 	}
 	cmds[data->n_cmds] = NULL;

@@ -6,7 +6,7 @@
 #    By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 12:01:22 by lcollado          #+#    #+#              #
-#    Updated: 2024/04/04 12:12:27 by lcollado         ###   ########.fr        #
+#    Updated: 2024/04/05 20:54:02 by lcollado         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,11 @@ BIN = bin
 DIR_SRC = src
 
 INCLUDE = -I inc
-CFLAGS = -g 
+CFLAGS = -g -Wall -Werror -Wextra
 CC = gcc $(CFLAGS) $(INCLUDE)
+
+# ------- Valgrind Rule -------
+VALGRIND_FLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose
 # -fsanitize=address -g3
 
 # ------- LIBFT -------
@@ -62,4 +65,8 @@ fclean: clean
 
 re : fclean all
 
-.PHONY: all re clean fclean
+valgrind: $(NAME)
+	@echo "Running Valgrind..."
+	@valgrind $(VALGRIND_FLAGS) ./$(NAME) []
+
+.PHONY: all re clean fclean valgrind

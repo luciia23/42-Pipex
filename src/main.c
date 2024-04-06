@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 16:25:11 by lcollado          #+#    #+#             */
-/*   Updated: 2024/04/04 12:51:55 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:46:53 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ void	init(t_pipex *data)
 	data->fd_prev[1] = -1;
 }
 
+
 int	main(int argc, char *argv[], char **envp)
 {
 	t_pipex	*pipex;
-
+	
 	pipex = ft_calloc(1, sizeof(t_pipex));
 	if (parse(pipex, argc, argv))
 	{
@@ -36,7 +37,9 @@ int	main(int argc, char *argv[], char **envp)
 		pipex->cmd_args = get_cmdargs(pipex, argc, argv);
 		make_pipex(pipex, envp);
 		free_stuff(pipex);
-		waitpid(-1, NULL, 0);
 	}
+	else
+		print_msg("Invalid arguments");
+	free(pipex);
 	return (0);
 }

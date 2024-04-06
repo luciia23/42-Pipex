@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 16:50:10 by lcollado          #+#    #+#             */
-/*   Updated: 2024/04/04 12:52:05 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/04/05 21:24:05 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,29 @@ void	error(char *msg)
 	exit(0);
 }
 
+void	print_msg(char *msg)
+{
+	write(2, msg, ft_strlen(msg));
+}
+
 void	free_stuff(t_pipex *pipex)
 {
-	//TODO : free
-	//free cmd_paths
+	int	i;
+	int	j;
+
+	i = 0;
+	while (pipex->cmd_paths && pipex->cmd_paths[i])
+		free(pipex->cmd_paths[i++]);
+	free(pipex->cmd_paths);
+	i = 0;
+	while (pipex->cmd_args && pipex->cmd_args[i])
+	{
+		j = 0;
+		while (pipex->cmd_args[i][j])
+			free(pipex->cmd_args[i][j++]);
+		free(pipex->cmd_args[i++]);
+	}
+	free(pipex->cmd_args);
 	if (pipex->here_doc)
 		unlink(HEREDOC_TMP);
 	close(pipex->infile);

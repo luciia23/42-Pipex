@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 16:14:31 by lcollado          #+#    #+#             */
-/*   Updated: 2024/04/04 12:48:43 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/04/05 21:22:07 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_pipex
 // UTILS
 void		error(char *msg);
 void	free_stuff(t_pipex *pipex);
+void	print_msg(char *msg);
 
 // PARSE
 int parse(t_pipex *pipex, int argc, char **argv);
