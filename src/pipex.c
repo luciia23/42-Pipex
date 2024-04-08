@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 16:53:15 by lcollado          #+#    #+#             */
-/*   Updated: 2024/04/06 20:44:55 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:25:45 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,17 @@ void	create_process(t_pipex *data, char **envp, int index)
 
 void	make_pipex(t_pipex *data, char **envp)
 {
-	int		i;
+	int	i;
+	int	status;
 
 	i = 0;
+	status = 0;
 	while (i < data->n_cmds)
 	{
 		create_process(data, envp, i);
 		i++;
 	}
-	waitpid(-1, NULL, 0);
+	i = 0;
+	while (++i < data->n_cmds)
+		waitpid(-1, &status, 0);
 }

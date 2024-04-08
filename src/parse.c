@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:10:40 by lcollado          #+#    #+#             */
-/*   Updated: 2024/04/06 22:05:22 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/04/08 11:00:08 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	parse(t_pipex *pipex, int argc, char **argv)
 {
 	if (argc < 5)
 		return (0);
-	if (strncmp(argv[1], "here_doc", 8) == 0 && argv[1])
+	if (ft_strncmp(argv[1], "here_doc", 8) == 0 && argv[1])
 		pipex->here_doc = 1;
 	pipex->n_cmds = argc - 3 - pipex->here_doc;
 	if (fd_infile(pipex, argv) == -1)

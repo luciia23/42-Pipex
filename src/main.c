@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 16:25:11 by lcollado          #+#    #+#             */
-/*   Updated: 2024/04/06 20:46:53 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:23:27 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,16 @@ void	init(t_pipex *data)
 	data->fd_prev[1] = -1;
 }
 
+void	check_leaks(void)
+{
+	system("leaks -q pipex");
+}
 
 int	main(int argc, char *argv[], char **envp)
 {
 	t_pipex	*pipex;
 	
+	// atexit(check_leaks);
 	pipex = ft_calloc(1, sizeof(t_pipex));
 	if (parse(pipex, argc, argv))
 	{
