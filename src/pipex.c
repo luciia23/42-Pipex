@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 16:53:15 by lcollado          #+#    #+#             */
-/*   Updated: 2024/04/08 12:25:45 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/04/20 16:11:51 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ void	exec_cmd(t_pipex *data, char **envp, int index)
 	data->cmd = get_cmd(data->cmd_paths, data->cmd_args[index][0]);
 	if (!data->cmd)
 	{
-		perror("command not found");
 		free_stuff(data);
-		exit(EXIT_FAILURE);
+		error("command not found");
 	}
 	execve(data->cmd, data->cmd_args[index], envp);
 	perror("exec failed:");
@@ -36,11 +35,7 @@ void	dupandfd(t_pipex *data, int index)
 		dup2(data->fd[1], STDOUT_FILENO);
 	else
 		dup2(data->outfile, STDOUT_FILENO);
-	// if (index > 0)
-	// 	close(data->fd_prev[0]);
-	// close(data->fd[0]);
 }
-
 
 void	close_pipes(t_pipex *data, int index)
 {
@@ -91,6 +86,7 @@ void	make_pipex(t_pipex *data, char **envp)
 		i++;
 	}
 	i = 0;
+	//parent process waits for all the childs to finish
 	while (++i < data->n_cmds)
 		waitpid(-1, &status, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 17:08:51 by lcollado          #+#    #+#             */
-/*   Updated: 2022/11/29 17:20:43 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/04/20 16:19:45 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
 
+	if (!s2)
+		return (0);
 	i = 0;
 	if (n == 0)
 		return (0);

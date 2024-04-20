@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:10:40 by lcollado          #+#    #+#             */
-/*   Updated: 2024/04/08 11:00:08 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/04/10 10:19:16 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ void	here_doc(char *delimiter, t_pipex *data)
 	if (data->infile < 0)
 	{
 		unlink(HEREDOC_TMP);
-		print_msg("here_doc error");
-		exit(EXIT_FAILURE);
+		error("here_doc error");
 	}
 }
 
