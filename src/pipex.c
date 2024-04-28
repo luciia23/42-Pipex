@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 16:53:15 by lcollado          #+#    #+#             */
-/*   Updated: 2024/04/20 16:11:51 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/04/28 19:11:22 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ void	make_pipex(t_pipex *data, char **envp)
 		create_process(data, envp, i);
 		i++;
 	}
-	i = 0;
+	i = -1;
 	//parent process waits for all the childs to finish
 	while (++i < data->n_cmds)
-		waitpid(-1, &status, 0);
+		waitpid(-1, NULL, 0);
 }

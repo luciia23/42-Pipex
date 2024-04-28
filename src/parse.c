@@ -6,11 +6,29 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:10:40 by lcollado          #+#    #+#             */
-/*   Updated: 2024/04/10 10:19:16 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/04/28 16:51:15 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+int	check_delimiter(char *buf, char *delimiter)
+{
+	size_t	i;
+	size_t	buf_len;
+
+	i = 0;
+	buf_len = ft_strlen(buf) - 1;
+	if (buf_len != ft_strlen(delimiter))
+		return (-1);
+	while (i < buf_len)
+	{
+		if (buf[i] != delimiter[i])
+			return (-1);
+		i++;
+	}
+	return (1);
+}
 
 void	here_doc(char *delimiter, t_pipex *data)
 {
@@ -26,8 +44,10 @@ void	here_doc(char *delimiter, t_pipex *data)
 		buf = get_next_line(STDIN_FILENO);
 		if (!buf)
 			exit(1);
-		if (ft_strncmp(delimiter, buf, ft_strlen(delimiter)) == 0)
+		if (check_delimiter(buf, delimiter) == 1)
 			break ;
+		// if (ft_strncmp(delimiter, buf, ft_strlen(delimiter)) == 0)
+		// 	break ;
 		write(fd, buf, ft_strlen(buf));
 		free(buf);
 	}
